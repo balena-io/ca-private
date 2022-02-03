@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-set -ex
+set -ea
+
+[[ "${VERBOSE}" =~ on|On|Yes|yes|true|True ]] && set -x
 
 if [[ -n "${BALENA_DEVICE_UUID}" ]]; then
     # prepend the device UUID if running on balenaOS
@@ -25,6 +27,12 @@ server_ca_gen=${SERVER_CA_GEN:-0}
 mkdir -p /pki /certs/private && cd /pki
 
 tmpjson="$(mktemp)"
+
+function cleanup() {
+   remove_update_lock
+}
+
+trap 'cleanup' EXIT
 
 function generate_ca_config {
     cat << EOF > config.json
@@ -207,6 +215,27 @@ EOF
     fi
 }
 
+function set_update_lock {
+    while [[ $(curl --silent --retry "${attempts}" --fail \
+      "${BALENA_SUPERVISOR_ADDRESS}/v1/device?apikey=${BALENA_SUPERVISOR_API_KEY}" \
+      -H "Content-Type: application/json" | jq -r '.update_pending') == 'true' ]]; do
+
+        curl --silent --retry "${attempts}" --fail \
+          "${BALENA_SUPERVISOR_ADDRESS}/v1/device?apikey=${BALENA_SUPERVISOR_API_KEY}" \
+          -H "Content-Type: application/json" | jq -r
+
+        sleep "$(( (RANDOM % 1) + 1 ))s"
+    done
+    sleep "$(( (RANDOM % 5) + 5 ))s"
+
+    # https://www.balena.io/docs/learn/deploy/release-strategy/update-locking/
+    lockfile /tmp/balena/updates.lock
+}
+
+function remove_update_lock() {
+    rm -f /tmp/balena/updates.lock
+}
+
 function bootstrap_ca {
     generate_ca_config
     generate_root_ca
@@ -214,7 +243,11 @@ function bootstrap_ca {
     generate_ocsp_cert
 }
 
+set_update_lock
+
 bootstrap_ca
+
+remove_update_lock
 
 if ! [ -f balena.db ]; then
     cat < /workdir/sqlite.sql | sqlite3 balena.db
@@ -248,6 +281,8 @@ cfssl ocspserve \
     sleep 1s;
 done) &
 
+set_update_lock
+
 # save root CA certificate
 cat "ca-${root_ca_gen}.pem" > "/certs/private/root-ca.${TLD}.pem"
 
@@ -258,6 +293,8 @@ cat "server-ca-${server_ca_gen}.pem" \
 # assemble CA bundle
 cat "server-ca-${server_ca_gen}.pem" "ca-${root_ca_gen}.pem" \
   > "/certs/private/ca-bundle.${TLD}.pem"
+
+remove_update_lock
 
 chmod 0600 /pki/*-key.pem \
   && cfssl serve \
