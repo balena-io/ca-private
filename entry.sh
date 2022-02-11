@@ -22,6 +22,7 @@ auth_key=${AUTH_KEY:-$(openssl rand -hex 16)}
 key_algo=${KEY_ALGO:-ecdsa}
 key_size=${KEY_SIZE:-256}
 root_ca_gen=${ROOT_CA_GEN:-0}
+root_ca_key_gen=${ROOT_CA_KEY_GEN:-0}
 server_ca_gen=${SERVER_CA_GEN:-0}
 
 mkdir -p /pki /certs/private && cd /pki
@@ -119,7 +120,7 @@ EOF
 }
 
 function generate_root_ca {
-    if ! [ -f "ca-${root_ca_gen}.pem" ]; then
+    if ! [ -e "ca-${root_ca_gen}.pem" ]; then
         cat << EOF > "${tmpjson}"
 {
   "CN": "${org} Root CA ${root_ca_gen}",
@@ -139,14 +140,22 @@ function generate_root_ca {
 }
 EOF
 
-        cfssl gencert -initca "${tmpjson}" | cfssljson -bare "ca-${root_ca_gen}"
+        if [ -e "ca-${root_ca_key_gen}.pem" ]; then
+            # use existing key
+            cfssl gencert -initca \
+              -ca-key "ca-${root_ca_key_gen}-key.pem" \
+              "${tmpjson}" | cfssljson -bare "ca-${root_ca_gen}"
+        else
+            # generate a new key
+            cfssl gencert -initca "${tmpjson}" | cfssljson -bare "ca-${root_ca_gen}"
+        fi
 
         rm -f "${tmpjson}"
     fi
 }
 
 function generate_server_ca {
-    if ! [ -f "server-ca-${server_ca_gen}.pem" ]; then
+    if ! [ -e "server-ca-${server_ca_gen}.pem" ]; then
         cat << EOF > "${tmpjson}"
 {
   "CN": "${org} Server CA ${server_ca_gen}",
@@ -169,9 +178,10 @@ function generate_server_ca {
 }
 EOF
 
+        # always generate a new key
         cfssl gencert \
           -ca "ca-${root_ca_gen}.pem" \
-          -ca-key "ca-${root_ca_gen}-key.pem" \
+          -ca-key "ca-${root_ca_key_gen}-key.pem" \
           -config config.json \
           -profile intermediate \
           "${tmpjson}" | cfssljson -bare "server-ca-${server_ca_gen}"
@@ -181,7 +191,7 @@ EOF
 }
 
 function generate_ocsp_cert {
-    if ! [ -f ocsp.pem ]; then
+    if ! [ -e ocsp.pem ]; then
         cat << EOF > ocsp.json
 {
   "CN": "${org} OCSP signer",
@@ -249,11 +259,11 @@ bootstrap_ca
 
 remove_update_lock
 
-if ! [ -f balena.db ]; then
+if ! [ -e balena.db ]; then
     cat < /workdir/sqlite.sql | sqlite3 balena.db
 fi
 
-! [ -f ocsp_responses ] && touch ocsp_responses
+! [ -e ocsp_responses ] && touch ocsp_responses
 cfssl ocspserve \
   -address 0.0.0.0 \
   -port 8889 \
@@ -310,4 +320,5 @@ chmod 0600 /pki/*-key.pem \
   -config config.json &
 
 # (TBC) implement automatic renewals
+# (e.g.) cfssl gencert -renewca -ca cert -ca-key key
 sleep infinity
