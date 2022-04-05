@@ -226,20 +226,23 @@ EOF
 }
 
 function set_update_lock {
-    while [[ $(curl --silent --retry "${attempts}" --fail \
-      "${BALENA_SUPERVISOR_ADDRESS}/v1/device?apikey=${BALENA_SUPERVISOR_API_KEY}" \
-      -H "Content-Type: application/json" | jq -r '.update_pending') == 'true' ]]; do
-
-        curl --silent --retry "${attempts}" --fail \
+    if [[ -n $BALENA_SUPERVISOR_ADDRESS ]] && [[ -n $BALENA_SUPERVISOR_API_KEY ]]; then
+        # shellcheck disable=SC2154
+        while [[ $(curl --silent --retry "${attempts}" --fail \
           "${BALENA_SUPERVISOR_ADDRESS}/v1/device?apikey=${BALENA_SUPERVISOR_API_KEY}" \
-          -H "Content-Type: application/json" | jq -r
+          -H "Content-Type: application/json" | jq -r '.update_pending') == 'true' ]]; do
 
-        sleep "$(( (RANDOM % 1) + 1 ))s"
-    done
-    sleep "$(( (RANDOM % 5) + 5 ))s"
+            curl --silent --retry "${attempts}" --fail \
+              "${BALENA_SUPERVISOR_ADDRESS}/v1/device?apikey=${BALENA_SUPERVISOR_API_KEY}" \
+              -H "Content-Type: application/json" | jq -r
 
-    # https://www.balena.io/docs/learn/deploy/release-strategy/update-locking/
-    lockfile /tmp/balena/updates.lock
+            sleep "$(( (RANDOM % 1) + 1 ))s"
+        done
+        sleep "$(( (RANDOM % 5) + 5 ))s"
+
+        # https://www.balena.io/docs/learn/deploy/release-strategy/update-locking/
+        lockfile /tmp/balena/updates.lock
+    fi
 }
 
 function remove_update_lock() {
