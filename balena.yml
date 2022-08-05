@@ -1,6 +1,7 @@
 name: ca-private
 type: sw.application
-description: Private certificate authority based on [CloudFlare's PKI/TLS toolkit](https://github.com/cloudflare/cfssl).
+description: Private certificate authority based on [CloudFlare's PKI/TLS
+  toolkit](https://github.com/cloudflare/cfssl).
 fleetcta: Go nuts
 post-provisioning: |
   [![balena](https://github.com/balenablocks/ca-private/actions/workflows/balena.yml/badge.svg)](https://github.com/balenablocks/ca-private/actions/workflows/balena.yml)
@@ -27,4 +28,4 @@ data:
     - intel-nuc
     - qemux86
     - qemux86-64
-version: 0.0.6
+version: 0.0.7
