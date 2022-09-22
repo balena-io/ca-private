@@ -11,6 +11,8 @@ else
     TLD="${DNS_TLD}"
 fi
 
+ca_port=${CA_PORT:-8888}
+ocsp_port=${OCSP_PORT:-8889}
 country=${COUNTRY:-US}
 state=${STATE:-Washington}
 locality_name=${LOCALITY_NAME:-Seattle}
@@ -288,7 +290,7 @@ cfssl ocspserve \
 
     cfssl ocspserve \
       -address 0.0.0.0 \
-      -port 8889 \
+      -port ${ocsp_port} \
       -responses ocsp_responses &
 
     sleep 1s;
@@ -312,7 +314,7 @@ remove_update_lock
 chmod 0600 /pki/*-key.pem \
   && cfssl serve \
   -address 0.0.0.0 \
-  -port 8888 \
+  -port ${ca_port} \
   -ca "server-ca-${server_ca_gen}.pem" \
   -ca-key "server-ca-${server_ca_gen}-key.pem" \
   -ca-bundle "ca-${root_ca_gen}.pem" \
