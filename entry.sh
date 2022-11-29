@@ -11,6 +11,7 @@ else
     TLD="${DNS_TLD}"
 fi
 
+attempts=${attempts:-3}
 ca_port=${CA_PORT:-8888}
 ocsp_port=${OCSP_PORT:-8889}
 country=${COUNTRY:-US}
