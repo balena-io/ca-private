@@ -1,0 +1,99 @@
+- commits:
+    - subject: Fill in missing config var
+      hash: a560e57c1dcc5c14977ccb744f9286bdd2211320
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 0.0.9
+  title: ""
+  date: 2022-11-29T23:14:36.403Z
+- version: 0.0.8
+  date: 2022-09-22T18:57:30Z
+  commits:
+    - hash: 35ced15146c9e5cdb7c50b062f6d472fab4929e2
+      author: ab77
+      footers:
+        change-type: patch
+      subject: Configurable ports
+      body: null
+- version: 0.0.7
+- date: 2022-08-05T00:58:39Z
+- commits:
+    - hash: 3acdcdcfd9026a7c8b69196c96da51dd9919084c
+- commits:
+    - author: ab77
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Publish balenaBlock
+- commits:
+    - body: "* balenaBlocks/ca-private-amd64"
+- version: 0.0.6
+- date: 2022-04-05T18:46:06Z
+- commits:
+    - hash: 9d3d640fb3da00e63bf2d6abadcf882757499362
+- commits:
+    - author: ab77
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Optional balena supervisor
+- commits:
+    - body: null
+- version: 0.0.5
+- date: 2022-02-14T20:53:24Z
+- commits:
+    - hash: 05e664b0e5a78e7a3dfb340a3074bad4651e37ce
+- commits:
+    - author: ab77
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Allow re-use of root CA key
+- commits:
+    - body: null
+- version: 0.0.4
+- date: 2022-02-03T21:55:36Z
+- commits:
+    - hash: a1797c5f0cb710cb4ba4b4b349b865a5ecd683b5
+- commits:
+    - author: ab77
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Lock critical sections
+- commits:
+    - body: null
+- version: 0.0.3
+- date: 2021-10-27T16:54:54Z
+- commits:
+    - hash: a7aedbd932d89d2d9df0437c30396e5b2a1bbcdc
+- commits:
+    - author: ab77
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Update documentation
+- commits:
+    - body: null
+- version: 0.0.2
+- date: 2021-10-21T15:21:36Z
+- commits:
+    - hash: 6fbc9775940495e831920708f1380a9fbfe8af05
+- commits:
+    - author: ab77
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Initial commit.
+- commits:
+    - body: null
