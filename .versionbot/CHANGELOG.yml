@@ -1,4 +1,16 @@
 - commits:
+    - subject: Allow plain TLD certs without UUID
+      hash: 6b6cf0d6e25f69fdac2e659d18c3465fa75fcbb1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 0.0.10
+  title: ""
+  date: 2022-11-30T02:06:23.815Z
+- commits:
     - subject: Fill in missing config var
       hash: a560e57c1dcc5c14977ccb744f9286bdd2211320
       body: ""
