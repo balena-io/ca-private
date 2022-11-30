@@ -28,14 +28,9 @@ root_ca_gen=${ROOT_CA_GEN:-0}
 root_ca_key_gen=${ROOT_CA_KEY_GEN:-0}
 server_ca_gen=${SERVER_CA_GEN:-0}
 
-mkdir -p /pki /certs/private && cd /pki
-
-tmpjson="$(mktemp)"
-
 function cleanup() {
    remove_update_lock
 }
-
 trap 'cleanup' EXIT
 
 function generate_ca_config {
@@ -258,6 +253,10 @@ function bootstrap_ca {
     generate_server_ca
     generate_ocsp_cert
 }
+
+mkdir -p /pki /certs/private && cd /pki
+
+tmpjson="$(mktemp)"
 
 set_update_lock
 
