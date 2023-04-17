@@ -1,4 +1,16 @@
 - commits:
+    - subject: Build multiarch images for amd64 and arm64
+      hash: 388d80e3c3b01e8728ba2bac8eb1274337749abc
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 0.0.11
+  title: ""
+  date: 2023-04-17T11:30:32.988Z
+- commits:
     - subject: Allow plain TLD certs without UUID
       hash: 6b6cf0d6e25f69fdac2e659d18c3465fa75fcbb1
       body: ""
