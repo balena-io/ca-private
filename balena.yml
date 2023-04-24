@@ -4,7 +4,7 @@ description: Private certificate authority based on [CloudFlare's PKI/TLS
   toolkit](https://github.com/cloudflare/cfssl).
 fleetcta: Go nuts
 post-provisioning: |
-  [![balena](https://github.com/balenablocks/ca-private/actions/workflows/balena.yml/badge.svg)](https://github.com/balenablocks/ca-private/actions/workflows/balena.yml)
+  [![balena](https://github.com/balena-io/ca-private/actions/workflows/balena.yml/badge.svg)](https://github.com/balena-io/ca-private/actions/workflows/balena.yml)
 
   ## Usage instructions
 
@@ -15,11 +15,11 @@ assets:
   repository:
     type: blob.asset
     data:
-      url: 'https://github.com/balenablocks/ca-private'
+      url: 'https://github.com/balena-io/ca-private'
   logo:
     type: blob.asset
     data:
-      url: 'https://raw.githubusercontent.com/balenablocks/ca-private/master/logo.png'
+      url: 'https://raw.githubusercontent.com/balena-io/ca-private/master/logo.png'
 data:
   defaultDeviceType: genericx86-64-ext
   supportedDeviceTypes:
@@ -28,4 +28,5 @@ data:
     - intel-nuc
     - qemux86
     - qemux86-64
+    - generic-aarch64
 version: 0.0.11

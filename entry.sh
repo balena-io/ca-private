@@ -8,11 +8,12 @@ if [[ -n "${BALENA_DEVICE_UUID}" ]]; then
     # prepend the device UUID if running on balenaOS
     TLD="${BALENA_DEVICE_UUID}.${DNS_TLD}"
 else
-    TLD="${DNS_TLD}"
+    TLD="${TLD:-${DNS_TLD}}"
 fi
 
 attempts=${attempts:-3}
 ca_port=${CA_PORT:-8888}
+certs=${CERTS:-/certs}
 ocsp_port=${OCSP_PORT:-8889}
 country=${COUNTRY:-US}
 state=${STATE:-Washington}
@@ -24,6 +25,7 @@ validity_hours=${VALIDITY_HOURS:-9528}
 auth_key=${AUTH_KEY:-$(openssl rand -hex 16)}
 key_algo=${KEY_ALGO:-ecdsa}
 key_size=${KEY_SIZE:-256}
+pki=${PKI:-/pki}
 root_ca_gen=${ROOT_CA_GEN:-0}
 root_ca_key_gen=${ROOT_CA_KEY_GEN:-0}
 server_ca_gen=${SERVER_CA_GEN:-0}
@@ -254,7 +256,7 @@ function bootstrap_ca {
     generate_ocsp_cert
 }
 
-mkdir -p /pki /certs/private && cd /pki
+mkdir -p "${pki}" "${certs}/private" && cd "${pki}"
 
 tmpjson="$(mktemp)"
 
@@ -275,7 +277,7 @@ cfssl ocspserve \
   -responses ocsp_responses &
 
 (while true; do
-    inotifywait -e create -e modify /pki/balena.db
+    inotifywait -e create -e modify ${pki}/balena.db
 
     for pid in $(pgrep -f 'cfssl ocspserve'); do
         kill "${pid}"
@@ -299,19 +301,19 @@ done) &
 set_update_lock
 
 # save root CA certificate
-cat "ca-${root_ca_gen}.pem" > "/certs/private/root-ca.${TLD}.pem"
+cat "ca-${root_ca_gen}.pem" > "${certs}/private/root-ca.${TLD}.pem"
 
 # save server CA certificate
 cat "server-ca-${server_ca_gen}.pem" \
-  > "/certs/private/server-ca.${TLD}.pem"
+  > "${certs}/private/server-ca.${TLD}.pem"
 
 # assemble CA bundle
 cat "server-ca-${server_ca_gen}.pem" "ca-${root_ca_gen}.pem" \
-  > "/certs/private/ca-bundle.${TLD}.pem"
+  > "${certs}/private/ca-bundle.${TLD}.pem"
 
 remove_update_lock
 
-chmod 0600 /pki/*-key.pem \
+chmod 0600 ${pki}/*-key.pem \
   && cfssl serve \
   -address 0.0.0.0 \
   -port ${ca_port} \
