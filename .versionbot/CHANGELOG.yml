@@ -1,4 +1,19 @@
 - commits:
+    - subject: Move to balena-io
+      hash: 9e569a45f1308048660d777d3ba4b8f911a00424
+      body: |
+        * assumble ca-bundle
+        * build GH package
+        * build balena multiarch
+        * make locations configurable
+      footer:
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 0.0.12
+  title: ""
+  date: 2023-04-25T18:55:36.584Z
+- commits:
     - subject: Build multiarch images for amd64 and arm64
       hash: 388d80e3c3b01e8728ba2bac8eb1274337749abc
       body: ""
