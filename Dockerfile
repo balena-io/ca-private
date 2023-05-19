@@ -1,5 +1,6 @@
 # https://hub.docker.com/r/cfssl/cfssl
-FROM cfssl/cfssl:v1.6.4
+# FIXME: revert to semver when https://github.com/cloudflare/cfssl/issues/1287 ships
+FROM cfssl/cfssl:nicky-docker-arch
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     inotify-tools \
