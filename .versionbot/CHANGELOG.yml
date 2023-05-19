@@ -1,4 +1,15 @@
 - commits:
+    - subject: pre-release aarch64/x86_64 build
+      hash: 5b2c43478a174190546d28ac53f07c3cac26ed63
+      body: ""
+      footer:
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 0.0.13
+  title: ""
+  date: 2023-05-19T01:36:15.065Z
+- commits:
     - subject: Move to balena-io
       hash: 9e569a45f1308048660d777d3ba4b8f911a00424
       body: |
