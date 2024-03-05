@@ -24,7 +24,7 @@ jobs:
     secrets: inherit
     with:
       balena_slugs: |
-        balena/ca-private-amd64
+        balena/ca-private-amd64,
         balena/ca-private-aarch64
       docker_images: |
         balena/ca-private,
