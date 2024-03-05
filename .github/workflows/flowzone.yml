@@ -23,15 +23,9 @@ jobs:
       )
     secrets: inherit
     with:
-      # FIXME: https://github.com/cloudflare/cfssl/issues/1287
-      # balena/ca-private-aarch64
       balena_slugs: |
-        balena/ca-private-amd64
+        balena/ca-private-amd64,
+        balena/ca-private-aarch64
       docker_images: |
         balena/ca-private,
         ghcr.io/balena-io/ca-private
-      required_status_checks: >
-        [
-          "Flowzone / All tests",
-          "Flowzone / All jobs"
-        ]
