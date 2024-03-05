@@ -1,4 +1,15 @@
 - commits:
+    - subject: use new release
+      hash: 46f582fd40770f6c834c0856853de02888c728c9
+      body: ""
+      footer:
+        change-type: patch
+      author: Anton Belodedenko
+      nested: []
+  version: 0.0.14
+  title: ""
+  date: 2024-03-05T21:20:53.364Z
+- commits:
     - subject: pre-release aarch64/x86_64 build
       hash: 5b2c43478a174190546d28ac53f07c3cac26ed63
       body: ""
