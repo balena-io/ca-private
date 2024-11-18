@@ -1,4 +1,15 @@
 - commits:
+    - subject: Explicitly set GH_TOKEN permissions
+      hash: 5fa9d211a12edd096eedc1122e0abb30220749ed
+      body: ""
+      footer:
+        change-type: patch
+      author: Anton Belodedenko
+      nested: []
+  version: 0.0.15
+  title: ""
+  date: 2024-11-18T21:19:09.032Z
+- commits:
     - subject: use new release
       hash: 46f582fd40770f6c834c0856853de02888c728c9
       body: ""
