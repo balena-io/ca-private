@@ -1,4 +1,17 @@
 - commits:
+    - subject: Pin cfssl/cfssl Docker tag to c9018c2
+      hash: c9192b7aba34c9a7d7df63d4c40f61b3a85dc0b0
+      body: |
+        Update cfssl/cfssl
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 0.0.32
+  title: ""
+  date: 2026-05-12T17:56:33.589Z
+- commits:
     - subject: Revert flowzone pinning to master
       hash: 3b34c8d1b6bd5b679c20fc7d920febdebefafe07
       body: ""
