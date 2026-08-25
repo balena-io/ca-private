@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency flowzonify to v0.4.0
+      hash: fd194071b7f091eb012a44e640d684efd5776992
+      body: |
+        Update flowzonify from 0.0.0 to 0.4.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 0.0.33
+  title: ""
+  date: 2026-08-25T15:20:17.811Z
+- commits:
     - subject: Pin cfssl/cfssl Docker tag to c9018c2
       hash: c9192b7aba34c9a7d7df63d4c40f61b3a85dc0b0
       body: |
