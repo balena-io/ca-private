@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update cfssl/cfssl Docker tag to v1.7.0
+      hash: 92c01699cf38986f42782ccb1136281686ea5a88
+      body: |
+        Update cfssl/cfssl from 1.6.5 to 1.7.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 0.0.34
+  title: ""
+  date: 2026-09-30T20:08:55.550Z
+- commits:
     - subject: Update dependency flowzonify to v0.4.0
       hash: fd194071b7f091eb012a44e640d684efd5776992
       body: |
