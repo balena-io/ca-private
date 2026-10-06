@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/cfssl/cfssl
-FROM cfssl/cfssl:v1.7.0@sha256:a4bd73ff0fcc19b2f9563431a083ec139f0e4f6a7a387de90f72ee46dc8cb360
+FROM cfssl/cfssl:v1.7.1@sha256:a32a9048078819d3035f5dc46637346a0e7da9df297ab234994c9a80cde10b98
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     inotify-tools \
