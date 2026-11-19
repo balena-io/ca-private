@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update cfssl/cfssl Docker tag to v1.7.2
+      hash: ed21498605aec2b2a5d3be769bfe78f2bff09167
+      body: |
+        Update cfssl/cfssl from 1.7.1 to 1.7.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 0.0.36
+  title: ""
+  date: 2026-11-19T20:43:08.848Z
+- commits:
     - subject: Update cfssl/cfssl Docker tag to v1.7.1
       hash: 81331d8ee4270e700b139dadd828ff7d9b0e0aef
       body: |
